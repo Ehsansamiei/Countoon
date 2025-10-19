@@ -3,8 +3,28 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from web.models import User, Token, Expense, Income
+from django.shortcuts import render, redirect
+from .forms import RegisterForm
+from django.contrib.auth import login
+
 
 # Create your views here.
+
+
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit = False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            login(request, user)
+            return redirect('/')
+    else:
+        form = RegisterForm()
+    return render(request, 'register.html', {'form': form})
+
 
 @csrf_exempt
 def submit_income(request):

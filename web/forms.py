@@ -1,11 +1,12 @@
 from django import forms
 from django.contrib.auth.models import User
 from captcha.fields import ReCaptchaField
-from captcha.widgets import ReCaptchaV2CheckBox
+from captcha.widgets import ReCaptchaV2Checkbox
+
 
 
 class RegisterForm(forms.ModelForm):
-    captcha = ReCaptchaField(widge=ReCaptchaV2CheckBox)
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
     class Meta:
         model = User
