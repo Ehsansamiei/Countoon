@@ -20,5 +20,11 @@ from . import views
 urlpatterns = [
     path('submit/expense/', views.submit_expense, name = 'submit_expense'),
     path('submit/income/', views.submit_income, name = 'submit_income'),
+
+
+    # login logout and user things
+    path('login/', views.login_views, name='login'),
+    path('logout/', views.logout_views, name='logout'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('register/', views.register, name='register'),
 ]

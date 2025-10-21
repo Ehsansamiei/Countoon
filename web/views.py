@@ -1,3 +1,6 @@
+#EHsan
+
+#Imports
 import datetime
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -6,11 +9,68 @@ from web.models import User, Token, Expense, Income
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from django.contrib.auth import login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 # Create your views here.
 
+def login_views(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username = username, password = password)
+        if user is not None:
+            login(request, user)
+            return redirect('dashboard')
+        else:
+            messages.error(request, 'Invalid credentials')
+        return render(request, 'login.html')
+    
 
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
+
+
+
+@login_required
+def dashboard(request):
+    #Only bring the data of this user
+    incomes = Income.objects.filter(User = request.user).order_by('-date')[:50]
+    expenses = Expense.objects.filter(User= request.user).order_by('-date')[:50]
+    total_income = sum(i.amount for i in incomes)
+    total_expenses = sum(i.amount for i in expenses)
+
+    context = {
+        'income':incomes,
+        'expenses':expenses,
+        'total_income': total_income,
+        'total_expense': total_expenses,
+    }
+    return render(request, 'dashboard.html', context)
+
+@login_required
+def add_expense(request):
+    if request.method == 'POST':
+        amount = int(request.POST.get('amount'))
+        text = request.POST.get('text')
+        date = request.POST.get('date')
+        Expense.objects.create(user = request.user, amount = amount, text = text, date = date)
+        return redirect('dashboard')
+    return render(request, 'add_expense.html')
+
+@login_required
+def add_income(request):
+    if request.method == 'POST':
+        amount = int(request.POST.get('amount'))
+        text = request.POST.get('text')
+        date = request.POST.get('date')
+        Income.objects.create(user = request.user, amount = amount, text = text, date = date)
+        return redirect('dashboard')
+    return redirect(request, 'add_income.html')
 
 def register(request):
     if request.method == 'POST':
@@ -19,6 +79,7 @@ def register(request):
             user = form.save(commit = False)
             user.set_password(form.cleaned_data['password'])
             user.save()
+            print("User created: ", user.username)
             login(request, user)
             return redirect('/')
     else:
@@ -67,3 +128,4 @@ def submit_expense(request):
     return JsonResponse({
         'status' : 'ok'
     })   
+
