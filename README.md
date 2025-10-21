@@ -23,7 +23,7 @@ source .env/bin/activate
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
-
+```
 
 ## 🔑 Environment Variables
 - Create a .env file with your keys:
@@ -31,6 +31,7 @@ python manage.py runserver
 ```bash
 RECAPTCHA_PUBLIC_KEY=your_key_here
 RECAPTCHA_PRIVATE_KEY=your_key_here
+```
 
 ## 👤 Developer
 
