@@ -35,6 +35,5 @@ RECAPTCHA_PRIVATE_KEY=your_key_here
 
 ## 👤 Developer
 
-Drake
-💻 Backend Developer
-📫 Contact: ehsan.samiei84@gmail.com
+- Drake 💻Backend Developer
+- 📫 Contact: ehsan.samiei84@gmail.com
