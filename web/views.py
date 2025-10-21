@@ -47,7 +47,7 @@ def dashboard(request):
     total_expenses = sum(i.amount for i in expenses)
 
     context = {
-        'income':incomes,
+        'incomes':incomes,
         'expenses':expenses,
         'total_income': total_income,
         'total_expense': total_expenses,
