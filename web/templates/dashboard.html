@@ -1,0 +1,23 @@
+<h2>Welcome, {{ request.user.username }}</h2>
+<p>Total income: {{ total_income }}</p>
+<p>Total expense: {{ total_expense }}</p>
+
+<h3>Incomes</h3>
+<ul>
+  {% for i in incomes %}
+    <li>{{ i.date }} - {{ i.amount }} - {{ i.text }}</li>
+  {% empty %}
+    <li>No incomes yet</li>
+  {% endfor %}
+</ul>
+
+<h3>Expenses</h3>
+<ul>
+  {% for e in expenses %}
+    <li>{{ e.date }} - {{ e.amount }} - {{ e.text }}</li>
+  {% empty %}
+    <li>No expenses yet</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'logout' %}">Logout</a>
