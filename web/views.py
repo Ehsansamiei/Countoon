@@ -28,8 +28,10 @@ def login_views(request):
             messages.error(request, 'Invalid credentials')
         return render(request, 'login.html')
     
+    return render(request, 'login.html')
 
-def logout_view(request):
+
+def logout_views(request):
     logout(request)
     return redirect('login')
 
@@ -39,8 +41,8 @@ def logout_view(request):
 @login_required
 def dashboard(request):
     #Only bring the data of this user
-    incomes = Income.objects.filter(User = request.user).order_by('-date')[:50]
-    expenses = Expense.objects.filter(User= request.user).order_by('-date')[:50]
+    incomes = Income.objects.filter(user = request.user).order_by('-date')[:50]
+    expenses = Expense.objects.filter(user= request.user).order_by('-date')[:50]
     total_income = sum(i.amount for i in incomes)
     total_expenses = sum(i.amount for i in expenses)
 
