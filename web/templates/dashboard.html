@@ -200,6 +200,30 @@
       color: #777;
       font-size: 0.9rem;
     }
+
+      .record-form-container {
+    max-width: 500px;
+    margin: 40px auto;
+  }
+
+  .record-form input, .record-form select {
+    border: 1px solid #ced4da;
+  }
+
+  .btn-success {
+    background-color: #28a745;
+    border: none;
+    font-weight: 600;
+    transition: background-color 0.2s;
+  }
+
+  .btn-success:hover {
+    background-color: #218838;
+  }
+
+  .text-center {
+    text-align: center;
+  }
   </style>
 </head>
 <body>
@@ -232,6 +256,66 @@
         </div>
       </div>
     </div>
+
+    <!-- <hr>
+
+    <h3>Add New Record</h3>
+    
+    <form method="POST" action="{% url 'add_record' %}">
+
+      {% csrf_token %}
+      <label>Type:</label>
+      <select name="record_type" required>
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+
+      <label>Amount:</label>
+      <input type="number" name="amount" step="0.01" required>
+
+      <label>Description:</label>
+      <input type="text" name="text" placeholder="Optional" maxlength="255">
+
+      <button type="submit">Add</button>
+    </form>
+
+    <hr> -->
+
+
+
+<hr>
+
+<div class="record-form-container">
+  <h3 class="text-center mb-4">Add New Record</h3>
+
+  <form method="POST" action="{% url 'add_record' %}" class="record-form shadow-sm p-4 rounded bg-white border">
+    {% csrf_token %}
+
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Type</label>
+      <select name="record_type" class="form-select" required>
+        <option value="income">💰 Income</option>
+        <option value="expense">💸 Expense</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Amount</label>
+      <input type="number" name="amount" step="0.01" class="form-control" required placeholder="Enter amount">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-semibold">Description</label>
+      <input type="text" name="text" class="form-control" placeholder="Optional description (e.g. Coffee, Salary)">
+    </div>
+
+    <button type="submit" class="btn btn-success w-100">Add Record</button>
+  </form>
+</div>
+
+<hr>
+
+
 
     <div class="row g-4">
       <div class="col-md-6">

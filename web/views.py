@@ -2,7 +2,6 @@
 
 #Imports
 import datetime
-from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from web.models import User, Token, Expense, Income
@@ -12,7 +11,7 @@ from django.contrib.auth import login
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from django.utils import timezone
 
 # Create your views here.
 
@@ -36,8 +35,6 @@ def logout_views(request):
     return redirect('login')
 
 
-
-
 @login_required
 def dashboard(request):
     #Only bring the data of this user
@@ -54,6 +51,20 @@ def dashboard(request):
     }
     return render(request, 'dashboard.html', context)
 
+def add_record(request):
+    if request.method == 'POST':
+        record_type = request.POST.get('record_type')
+        amount = request.POST.get('amount')
+        text = request.POST.get('text','')
+        date = request.POST.get('date') or timezone.now()
+
+        if record_type == 'income':
+            Income.objects.create(user = request.user, amount = amount, text = text, date = date)
+        elif record_type == 'expense':
+            Expense.objects.create(user = request.user, amount = amount, text = text, date = date)
+        return redirect('dashboard')
+    return redirect('dashboard')
+
 @login_required
 def add_expense(request):
     if request.method == 'POST':
@@ -63,6 +74,8 @@ def add_expense(request):
         Expense.objects.create(user = request.user, amount = amount, text = text, date = date)
         return redirect('dashboard')
     return render(request, 'add_expense.html')
+
+
 
 @login_required
 def add_income(request):
