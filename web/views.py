@@ -51,6 +51,7 @@ def dashboard(request):
     }
     return render(request, 'dashboard.html', context)
 
+@login_required
 def add_record(request):
     if request.method == 'POST':
         record_type = request.POST.get('record_type')
@@ -65,6 +66,8 @@ def add_record(request):
         return redirect('dashboard')
     return redirect('dashboard')
 
+
+
 @login_required
 def add_expense(request):
     if request.method == 'POST':
@@ -74,7 +77,6 @@ def add_expense(request):
         Expense.objects.create(user = request.user, amount = amount, text = text, date = date)
         return redirect('dashboard')
     return render(request, 'add_expense.html')
-
 
 
 @login_required
