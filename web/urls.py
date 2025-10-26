@@ -28,4 +28,5 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('register/', views.register, name='register'),
     path('add_record/', views.add_record, name='add_record'),
+    path('', views.index, name = 'index'),
 ]

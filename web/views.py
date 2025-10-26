@@ -15,6 +15,14 @@ from django.utils import timezone
 
 # Create your views here.
 
+
+def index(request):
+    context = {}
+    return render(request, 'index.html', context)
+
+
+
+
 def login_views(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -51,6 +59,7 @@ def dashboard(request):
     }
     return render(request, 'dashboard.html', context)
 
+
 @login_required
 def add_record(request):
     if request.method == 'POST':
@@ -65,7 +74,6 @@ def add_record(request):
             Expense.objects.create(user = request.user, amount = amount, text = text, date = date)
         return redirect('dashboard')
     return redirect('dashboard')
-
 
 
 @login_required
