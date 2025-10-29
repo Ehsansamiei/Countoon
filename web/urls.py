@@ -28,5 +28,6 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('register/', views.register, name='register'),
     path('add_record/', views.add_record, name='add_record'),
+    path('delete_record/<str:record_type>/<int:pk>/', views.delete_record, name='delete_record'),
     path('', views.index, name = 'index'),
 ]

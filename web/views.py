@@ -5,13 +5,12 @@ import datetime
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from web.models import User, Expense, Income
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegisterForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
-
 # Create your views here.
 
 
@@ -63,7 +62,7 @@ def dashboard(request):
 def add_record(request):
     if request.method == 'POST':
         record_type = request.POST.get('record_type')
-        amount = request.POST.get('amount')
+        amount = request.POST.get('amount', '').replace(',', '')
         text = request.POST.get('text','')
         date = request.POST.get('date') or timezone.now()
 
@@ -72,6 +71,17 @@ def add_record(request):
         elif record_type == 'expense':
             Expense.objects.create(user = request.user, amount = amount, text = text, date = date)
         return redirect('dashboard')
+    return redirect('dashboard')
+
+
+@login_required
+def delete_record(request, record_type, pk):
+    if record_type == 'income':
+        record = get_object_or_404(Income, pk=pk, user=request.user)
+    else:
+        record = get_object_or_404(Expense, pk=pk, user=request.user)
+    
+    record.delete()
     return redirect('dashboard')
 
 
