@@ -1,5 +1,6 @@
 
 {% load static %}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,13 +89,13 @@
       <div class="col-md-6">
         <div class="card text-center p-4">
           <h5>Total Income</h5>
-          <h3 class="text-success">{{ total_income }}</h3>
+          <h3 class="text-success">{{ total_income | intcomma }}</h3>
         </div>
       </div>
       <div class="col-md-6">
         <div class="card text-center p-4">
           <h5>Total Expense</h5>
-          <h3 class="text-danger">{{ total_expense }}</h3>
+          <h3 class="text-danger">{{ total_expense | intcomma }}</h3>
         </div>
       </div>
     </div>
@@ -138,7 +139,6 @@
         <div class="card p-3">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h5 class="mb-0">💰 Incomes</h5>
-            <a href="{submit/income/}" class="btn btn-success btn-sm">+ Add Income</a>
           </div>
           <table class="table table-striped align-middle">
             <thead>
@@ -152,7 +152,7 @@
               {% for i in incomes %}
               <tr>
                 <td>{{ i.date|date:"Y-m-d H:i" }}</td>
-                <td class="text-success">{{ i.amount }}</td>
+                <td class="text-success">{{ i.amount | intcomma}}</td>
                 <td>{{ i.text }}</td>
               </tr>
               {% empty %}
@@ -167,7 +167,6 @@
         <div class="card p-3">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h5 class="mb-0">💸 Expenses</h5>
-            <a href="{submit/expense/}" class="btn btn-danger btn-sm">+ Add Expense</a>
           </div>
           <table class="table table-striped align-middle">
             <thead>
@@ -181,7 +180,7 @@
               {% for e in expenses %}
               <tr>
                 <td>{{ e.date|date:"Y-m-d H:i" }}</td>
-                <td class="text-danger">{{ e.amount }}</td>
+                <td class="text-danger">{{ e.amount | intcomma}}</td>
                 <td>{{ e.text }}</td>
               </tr>
               {% empty %}
