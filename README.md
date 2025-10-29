@@ -1,7 +1,7 @@
 # 🧮 Bestoon - Accounting System
 
 A lightweight Django-based accounting web app where each user can register, log in, and manage their own expenses and incomes securely.
-- Temporary site address : 185.173.104.192
+- Temporary site address : http://185.173.104.192
 ## 🚀 Features
 - User registration & login system with CAPTCHA
 - User-specific dashboards
