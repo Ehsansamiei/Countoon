@@ -18,8 +18,8 @@ A lightweight Django-based accounting web app where each user can register, log 
 
 ## ⚙️ Installation
 ```bash
-git clone https://github.com/Ehsansamiei/bestoon.git
-cd bestoon
+git clone https://github.com/Ehsansamiei/Countoon.git
+cd Countoon
 python -m venv .env
 source .env/bin/activate
 pip install -r requirements.txt
