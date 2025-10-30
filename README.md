@@ -1,4 +1,4 @@
-# 🧮 Bestoon - Accounting System
+# 🧮 Countoon - Accounting System
 
 A lightweight Django-based accounting web app where each user can register, log in, and manage their own expenses and incomes securely.
 ---
