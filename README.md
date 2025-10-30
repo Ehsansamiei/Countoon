@@ -3,7 +3,7 @@
 A lightweight Django-based accounting web app where each user can register, log in, and manage their own expenses and incomes securely.
 ---
 
-- webapp address : drakestoon.ir
+- webapp address : https://drakestoon.ir
 ## 🚀 Features
 - User registration & login system with CAPTCHA
 - User-specific dashboards
