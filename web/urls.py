@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('submit/expense/', views.submit_expense, name = 'submit_expense'),
@@ -30,4 +32,4 @@ urlpatterns = [
     path('add_record/', views.add_record, name='add_record'),
     path('delete_record/<str:record_type>/<int:pk>/', views.delete_record, name='delete_record'),
     path('', views.index, name = 'index'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
